@@ -24,3 +24,6 @@ obj/DemoWebTemplate.csproj.nuget.g.props
 obj/project.assets.json
 obj/project.nuget.cache
 obj/staticwebassets.pack.sentinel
+.vs/DemoWebTemplate/FileContentIndex/d708c830-0e9c-493f-9df7-05fe4447da95.vsidx
+.vs/DemoWebTemplate/FileContentIndex/e0ae2852-0a34-4463-8ae0-36353e0500fa.vsidx
+.vs/DemoWebTemplate/FileContentIndex/write.lock
