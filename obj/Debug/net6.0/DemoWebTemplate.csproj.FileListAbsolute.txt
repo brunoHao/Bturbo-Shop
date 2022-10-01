@@ -102,3 +102,29 @@ C:\Users\dattr\Desktop\DemoWebTemplate - Copy - Copy - Copy\DemoWebTemplate\obj\
 C:\Users\dattr\Desktop\DemoWebTemplate - Copy - Copy - Copy\DemoWebTemplate\obj\Debug\net6.0\DemoWebTemplate.pdb
 C:\Users\dattr\Desktop\DemoWebTemplate - Copy - Copy - Copy\DemoWebTemplate\obj\Debug\net6.0\DemoWebTemplate.genruntimeconfig.cache
 C:\Users\dattr\Desktop\DemoWebTemplate - Copy - Copy - Copy\DemoWebTemplate\obj\Debug\net6.0\ref\DemoWebTemplate.dll
+D:\Github\demotemplate\bin\Debug\net6.0\appsettings.Development.json
+D:\Github\demotemplate\bin\Debug\net6.0\appsettings.json
+D:\Github\demotemplate\bin\Debug\net6.0\DemoWebTemplate.staticwebassets.runtime.json
+D:\Github\demotemplate\bin\Debug\net6.0\DemoWebTemplate.exe
+D:\Github\demotemplate\bin\Debug\net6.0\DemoWebTemplate.deps.json
+D:\Github\demotemplate\bin\Debug\net6.0\DemoWebTemplate.runtimeconfig.json
+D:\Github\demotemplate\bin\Debug\net6.0\DemoWebTemplate.dll
+D:\Github\demotemplate\bin\Debug\net6.0\DemoWebTemplate.pdb
+D:\Github\demotemplate\obj\Debug\net6.0\DemoWebTemplate.csproj.AssemblyReference.cache
+D:\Github\demotemplate\obj\Debug\net6.0\DemoWebTemplate.GeneratedMSBuildEditorConfig.editorconfig
+D:\Github\demotemplate\obj\Debug\net6.0\DemoWebTemplate.AssemblyInfoInputs.cache
+D:\Github\demotemplate\obj\Debug\net6.0\DemoWebTemplate.AssemblyInfo.cs
+D:\Github\demotemplate\obj\Debug\net6.0\DemoWebTemplate.csproj.CoreCompileInputs.cache
+D:\Github\demotemplate\obj\Debug\net6.0\DemoWebTemplate.MvcApplicationPartsAssemblyInfo.cache
+D:\Github\demotemplate\obj\Debug\net6.0\DemoWebTemplate.RazorAssemblyInfo.cache
+D:\Github\demotemplate\obj\Debug\net6.0\DemoWebTemplate.RazorAssemblyInfo.cs
+D:\Github\demotemplate\obj\Debug\net6.0\staticwebassets.build.json
+D:\Github\demotemplate\obj\Debug\net6.0\staticwebassets.development.json
+D:\Github\demotemplate\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
+D:\Github\demotemplate\obj\Debug\net6.0\scopedcss\bundle\DemoWebTemplate.styles.css
+D:\Github\demotemplate\obj\Debug\net6.0\scopedcss\projectbundle\DemoWebTemplate.bundle.scp.css
+D:\Github\demotemplate\obj\Debug\net6.0\DemoWebTemplate.dll
+D:\Github\demotemplate\obj\Debug\net6.0\refint\DemoWebTemplate.dll
+D:\Github\demotemplate\obj\Debug\net6.0\DemoWebTemplate.pdb
+D:\Github\demotemplate\obj\Debug\net6.0\DemoWebTemplate.genruntimeconfig.cache
+D:\Github\demotemplate\obj\Debug\net6.0\ref\DemoWebTemplate.dll
