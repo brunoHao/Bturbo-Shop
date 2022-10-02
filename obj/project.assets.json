@@ -8,19 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Duc Toan\\.nuget\\packages\\": {}
+    "C:\\Users\\dattr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Github\\demotemplate\\DemoWebTemplate.csproj",
+      "projectUniqueName": "C:\\Users\\dattr\\Documents\\GitHub\\demotemplate\\DemoWebTemplate.csproj",
       "projectName": "DemoWebTemplate",
-      "projectPath": "D:\\Github\\demotemplate\\DemoWebTemplate.csproj",
-      "packagesPath": "C:\\Users\\Duc Toan\\.nuget\\packages\\",
-      "outputPath": "D:\\Github\\demotemplate\\obj\\",
+      "projectPath": "C:\\Users\\dattr\\Documents\\GitHub\\demotemplate\\DemoWebTemplate.csproj",
+      "packagesPath": "C:\\Users\\dattr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dattr\\Documents\\GitHub\\demotemplate\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Duc Toan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dattr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

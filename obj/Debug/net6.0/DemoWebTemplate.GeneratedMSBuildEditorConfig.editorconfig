@@ -8,69 +8,69 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = DemoWebTemplate
 build_property.RootNamespace = DemoWebTemplate
-build_property.ProjectDir = D:\Github\demotemplate\
+build_property.ProjectDir = C:\Users\dattr\Documents\GitHub\demotemplate\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Github\demotemplate
+build_property.MSBuildProjectDirectory = C:\Users\dattr\Documents\GitHub\demotemplate
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Github/demotemplate/Views/Account/login.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Account/login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxsb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/Account/tracking.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Account/tracking.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFx0cmFja2luZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/Contact/Index.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Contact/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/Home/Index.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/Home/Privacy.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/Shared/Error.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/Shop/cart.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Shop/cart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcFxjYXJ0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/Shop/category.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Shop/category.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcFxjYXRlZ29yeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/Shop/checkout.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Shop/checkout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcFxjaGVja291dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/Shop/confirmation.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Shop/confirmation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcFxjb25maXJtYXRpb24uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/Shop/singleproduct.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Shop/singleproduct.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcFxzaW5nbGVwcm9kdWN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/_ViewImports.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/_ViewStart.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Github/demotemplate/Views/Shared/_Layout.cshtml]
+[C:/Users/dattr/Documents/GitHub/demotemplate/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-36et4qchf7
