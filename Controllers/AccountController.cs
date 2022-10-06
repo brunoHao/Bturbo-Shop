@@ -76,13 +76,15 @@ namespace DemoWebTemplate.Controllers
                     if (user != null)
                     {
                         result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: true);
+                        return RedirectToAction("Index", "Home");
+
                     }
                 }
 
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return LocalRedirect(returnUrl);
+                    return RedirectToAction("Index","Home");
                 }
                
 
@@ -136,7 +138,7 @@ namespace DemoWebTemplate.Controllers
                 {
                     _logger.LogInformation("Đã tạo user mới.");
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    return RedirectToAction("Index", "Home");
 
                     // Phát sinh token để xác nhận email
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

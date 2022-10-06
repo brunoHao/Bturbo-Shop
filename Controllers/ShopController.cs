@@ -4,23 +4,23 @@ namespace DemoWebTemplate.Controllers
 {
     public class ShopController : Controller
     {
-        public IActionResult category()
+        public IActionResult Category()
         {
             return View();
         }
-        public IActionResult singleproduct()
+        public IActionResult Singleproduct()
         {
             return View();
         }
-        public IActionResult checkout()
+        public IActionResult Checkout()
         {
             return View();
         }
-        public IActionResult cart()
+        public IActionResult Cart()
         {
             return View();
         }
-        public IActionResult confirmation()
+        public IActionResult Confirmation()
         {
             return View();
         }
