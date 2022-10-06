@@ -1,15 +1,10 @@
-﻿@using System.Collections.Generic
-@using Microsoft.AspNetCore.Http
-@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Authentication
+﻿@using DemoWebTemplate.Models
 @using DemoWebTemplate.Models.Account
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<AppUser> SignInManager
 
-@model LoginViewModel
+@model RegisterViewModel
 
-@{
-    ViewData["Title"] = "Đăng nhập";
-}
 <body>
 
     <!-- Start Banner Area -->
@@ -43,39 +38,59 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="login_form_inner">
-                        <h3>Log in to enter</h3>
-                        <form class="row login_form" asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" novalidate="novalidate" class="form-horizontal" role="form">
-                            <hr>
+                        <h3>Enter To Register</h3>
+                        <form class="row login_form" asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"] method="post" novalidate="novalidate" class="form-horizontal" role="form">
+
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                             <div class="col-md-12 form-group">
-                                <label asp-for="UserNameOrEmail" class="control-label"></label>
+                                <label asp-for="UserName" class="col-md-10 control-label"></label>
                                 <div class="col-md-10">
-                                    <input asp-for="UserNameOrEmail" class="form-control" />
-                                    <span asp-validation-for="UserNameOrEmail" class="text-danger"></span>
+                                    <input asp-for="UserName" class="form-control" />
+                                    <span asp-validation-for="UserName" class="text-danger"></span>
                                 </div>
                             </div>
+
                             <div class="col-md-12 form-group">
-                                <label asp-for="Password" class="control-label"></label>
+                                <label asp-for="Email" class="col-md-10 control-label"></label>
+                                <div class="col-md-10">
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <label asp-for="Password" class="col-md-10 control-label"></label>
                                 <div class="col-md-10">
                                     <input asp-for="Password" class="form-control" />
                                     <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
                             </div>
+
                             <div class="col-md-12 form-group">
-                                <div class="creat_account">
-                                    <label asp-for="RememberMe">
-                                        <input asp-for="RememberMe" />
-                                        @Html.DisplayNameFor(m => m.RememberMe)
-                                    </label>
-                                    @* <input type="checkbox" id="f-option2" name="selector">
-                                    <label for="f-option2">Keep me logged in</label>*@
+                                <label asp-for="ConfirmPassword" class="col-md-10 control-label"></label>
+                                <div class="col-md-10">
+                                    <input asp-for="ConfirmPassword" class="form-control" />
+                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                                 </div>
                             </div>
+
                             <div class="col-md-12 form-group">
-                                <button type="submit" value="submit" class="primary-btn">Log In</button>
+                                <div class="creat_account">
+                                    <input type="checkbox" id="f-option2" name="selector">
+                                    <label for="f-option2">Keep me logged in</label>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 form-group">
+                                <button type="submit" value="submit" class="primary-btn">Create Account</button>
                                 <a href="#">Forgot Password?</a>
                             </div>
+
+                           @* <div class="col-md-12 form-group">
+                                <button type="submit" value="submit" class="primary-btn">Log In</button>
+                                <a href="#">Forgot Password?</a>
+                            </div>*@
                         </form>
                     </div>
                 </div>
