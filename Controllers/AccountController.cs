@@ -33,16 +33,12 @@ namespace DemoWebTemplate.Controllers
             _logger = logger;
         }
 
-        //public IActionResult Login()
-        //{
-        //    return View();
-        //}
+      
 
         public IActionResult Tracking()
         {
             return View();
         }
-        //GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
@@ -51,8 +47,6 @@ namespace DemoWebTemplate.Controllers
             return View();
         }
 
-        ////
-        //// POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
@@ -100,17 +94,6 @@ namespace DemoWebTemplate.Controllers
             return View(model);
         }
 
-        //// POST: /Account/LogOff
-        //[HttpPost("/logout/")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> LogOff()
-        //{
-        //    await _signInManager.SignOutAsync();
-        //    _logger.LogInformation("User đăng xuất");
-        //    return RedirectToAction("Index", "Home", new {area = ""});
-        //}
-        //
-        // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
@@ -138,37 +121,6 @@ namespace DemoWebTemplate.Controllers
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     StatusMessage = "Created User Success";
                     return RedirectToAction("Index", "Home");
-
-
-                    // Phát sinh token để xác nhận email
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-
-                    //// https://localhost:5001/confirm-email?userId=fdsfds&code=xyz&returnUrl=
-                    //var callbackUrl = Url.ActionLink(
-                    //    action: nameof(ConfirmEmail),
-                    //    values: 
-                    //        new { area = "Identity", 
-                    //              userId = user.Id, 
-                    //              code = code},
-                    //    protocol: Request.Scheme);
-
-                    //await _emailSender.SendEmailAsync(model.Email, 
-                    //    "Xác nhận địa chỉ email",
-                    //    @$"Bạn đã đăng ký tài khoản trên RazorWeb, 
-                    //       hãy <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>bấm vào đây</a> 
-                    //       để kích hoạt tài khoản.");
-
-                    //if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    //{
-                    //    return LocalRedirect(Url.Action(nameof(RegisterConfirmation)));
-                    //}
-                    //else
-                    //{
-                    //await _signInManager.SignInAsync(user, isPersistent: false);
-                    //return LocalRedirect(returnUrl);
-                    //}
-
                 }
                 StatusMessage = "Register Failed";
                 ModelState.AddModelError(result);
