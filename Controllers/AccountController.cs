@@ -1,18 +1,10 @@
-using System;
-using System.Linq;
-using System.Security.Claims;
 using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
 using DemoWebTemplate.Models.Account;
 using DemoWebTemplate.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using DemoWebTemplate.ExtendMethods;
 using DemoWebTemplate.Utilities;
@@ -27,6 +19,8 @@ namespace DemoWebTemplate.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ILogger<AccountController> _logger;
 
+        [TempData]
+        public string StatusMessage { get; set; }
         public AccountController(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
@@ -49,8 +43,8 @@ namespace DemoWebTemplate.Controllers
             return View();
         }
         //GET: /Account/Login
-       [HttpGet]
-       [AllowAnonymous]
+        [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
@@ -76,7 +70,8 @@ namespace DemoWebTemplate.Controllers
                     if (user != null)
                     {
                         result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, lockoutOnFailure: true);
-                        return RedirectToAction("Index", "Home");
+                        StatusMessage = "Success";
+                        return RedirectToAction("Index", "Home", StatusMessage);
 
                     }
                 }
@@ -84,18 +79,21 @@ namespace DemoWebTemplate.Controllers
                 if (result.Succeeded)
                 {
                     _logger.LogInformation(1, "User logged in.");
-                    return RedirectToAction("Index","Home");
+                    StatusMessage = "Success";
+                    return RedirectToAction("Index", "Home",StatusMessage);
                 }
-               
+
 
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning(2, "Tài khoản bị khóa");
+                    _logger.LogWarning(2, "Your Account Are Locked");
+                    StatusMessage = "Your Account Are Locked";
                     return View("Lockout");
                 }
                 else
                 {
-                    ModelState.AddModelError("Không đăng nhập được.");
+                    ModelState.AddModelError("Cannot SignIn.");
+                    StatusMessage = "Cannot SignIn";
                     return View(model);
                 }
             }
@@ -136,9 +134,11 @@ namespace DemoWebTemplate.Controllers
 
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation("Đã tạo user mới.");
+                    _logger.LogInformation("Created User Success");
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    StatusMessage = "Created User Success";
                     return RedirectToAction("Index", "Home");
+
 
                     // Phát sinh token để xác nhận email
                     //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -170,14 +170,14 @@ namespace DemoWebTemplate.Controllers
                     //}
 
                 }
-
+                StatusMessage = "Register Failed";
                 ModelState.AddModelError(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
         }
-        
+
         // GET: /Account/ConfirmEmail
         [HttpGet]
         [AllowAnonymous]
@@ -203,11 +203,13 @@ namespace DemoWebTemplate.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "ErrorConfirmEmail");
         }
 
-
-
-
-
-
-
+        [HttpGet]
+        public async Task<IActionResult> LogOff()
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User Logout");
+            StatusMessage = "User Logout";
+            return RedirectToAction("Index", "Home", StatusMessage);
+        }
     }
 }

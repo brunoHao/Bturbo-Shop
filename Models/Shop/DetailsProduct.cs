@@ -11,12 +11,10 @@ namespace DemoWebTemplate.Models.Shop
 
         [StringLength(225)]
         [Required]
-        [Column(TypeName = "nvarchar")]
         public string? Name { get; set; }
 
         [StringLength(225)]
         [Required]
-        [Column(TypeName = "nvarchar")]
         public string? Brand { get; set; }
 
         [Required]

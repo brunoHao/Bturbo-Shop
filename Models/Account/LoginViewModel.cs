@@ -11,12 +11,12 @@ namespace DemoWebTemplate.Models.Account
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Phải nhập {0}")]
+        [Required(ErrorMessage = "Must Import {0}")]
         [Display(Name = "UserName Or Email")]
         public string UserNameOrEmail { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "Must Import {0}")]
         [DataType(DataType.Password)]
         [Display]
         public string Password { get; set; }

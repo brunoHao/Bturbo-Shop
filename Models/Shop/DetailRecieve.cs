@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace DemoWebTemplate.Models
+namespace DemoWebTemplate.Models.Shop
 {
     public class DetailRecieve
     {
