@@ -87,7 +87,7 @@ namespace DemoWebTemplate.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("DemoWebTemplate.Models.Cart", b =>
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.Cart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,7 +113,7 @@ namespace DemoWebTemplate.Migrations
                     b.ToTable("Carts");
                 });
 
-            modelBuilder.Entity("DemoWebTemplate.Models.Category", b =>
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,17 +126,12 @@ namespace DemoWebTemplate.Migrations
                         .HasMaxLength(225)
                         .HasColumnType("nvarchar(225)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("DemoWebTemplate.Models.DetailRecieve", b =>
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.DetailRecieve", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,7 +156,7 @@ namespace DemoWebTemplate.Migrations
                     b.ToTable("DetailRecieves");
                 });
 
-            modelBuilder.Entity("DemoWebTemplate.Models.DetailsProduct", b =>
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.DetailsProduct", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -189,7 +184,7 @@ namespace DemoWebTemplate.Migrations
                     b.ToTable("DetailsProducts");
                 });
 
-            modelBuilder.Entity("DemoWebTemplate.Models.Product", b =>
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -197,8 +192,15 @@ namespace DemoWebTemplate.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Count")
                         .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -210,10 +212,12 @@ namespace DemoWebTemplate.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("DemoWebTemplate.Models.Recieve", b =>
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.Recieve", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -370,9 +374,9 @@ namespace DemoWebTemplate.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("DemoWebTemplate.Models.Cart", b =>
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.Cart", b =>
                 {
-                    b.HasOne("DemoWebTemplate.Models.Product", "Product")
+                    b.HasOne("DemoWebTemplate.Models.Shop.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -381,20 +385,9 @@ namespace DemoWebTemplate.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("DemoWebTemplate.Models.Category", b =>
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.DetailRecieve", b =>
                 {
-                    b.HasOne("DemoWebTemplate.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("DemoWebTemplate.Models.DetailRecieve", b =>
-                {
-                    b.HasOne("DemoWebTemplate.Models.Recieve", "Recieve")
+                    b.HasOne("DemoWebTemplate.Models.Shop.Recieve", "Recieve")
                         .WithMany()
                         .HasForeignKey("RecieveId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -403,9 +396,9 @@ namespace DemoWebTemplate.Migrations
                     b.Navigation("Recieve");
                 });
 
-            modelBuilder.Entity("DemoWebTemplate.Models.DetailsProduct", b =>
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.DetailsProduct", b =>
                 {
-                    b.HasOne("DemoWebTemplate.Models.Product", "Product")
+                    b.HasOne("DemoWebTemplate.Models.Shop.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -414,9 +407,20 @@ namespace DemoWebTemplate.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("DemoWebTemplate.Models.Recieve", b =>
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.Product", b =>
                 {
-                    b.HasOne("DemoWebTemplate.Models.Cart", "Cart")
+                    b.HasOne("DemoWebTemplate.Models.Shop.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.Recieve", b =>
+                {
+                    b.HasOne("DemoWebTemplate.Models.Shop.Cart", "Cart")
                         .WithMany()
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
