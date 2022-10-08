@@ -230,9 +230,9 @@
                 <!-- Start Best Seller -->
                 <section class="lattest-product-area pb-40 category-list">
                     <div class="container">
+                        <div class="row">
                         @foreach (var item in Model)
                         {
-                            <div class="row">
                             <div class="col-lg-4 col-md-6">
                                 <div class="single-product">
                                     <img class="img-fluid" src="@item.Image" alt="" />
@@ -267,11 +267,8 @@
                                     </div>
                                 </div>
                             </div>
-                            </div>
-
                         }
-
-
+                        </div>
                     </div>
                     @*	<div class="row">
                     <!-- single product -->
