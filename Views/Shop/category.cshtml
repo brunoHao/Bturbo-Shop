@@ -231,43 +231,44 @@
                 <section class="lattest-product-area pb-40 category-list">
                     <div class="container">
                         <div class="row">
-                        @foreach (var item in Model)
-                        {
-                            <div class="col-lg-4 col-md-6">
-                                <div class="single-product">
-                                    <img class="img-fluid" src="@item.Image" alt="" />
-                                    <div class="product-details">
-                                        <h6>
-                                            @item.Name
-                                        </h6>
-                                    </div>
-                                    <div class="price">
-                                        <h6>
-                                            @item.Price
-                                        </h6>
-                                    </div>
-                                    <div class="prd-bottom">
+                            @foreach (var item in Model)
+                            {
+                                <div class="col-lg-4 col-md-6">
+                                    <div class="single-product">
+                                        <img class="img-fluid" src="@item.Image" alt="" />
+                                        <div class="product-details">
+                                            <h6>
+                                                @item.Name
+                                            </h6>
 
-                                        <a href="" class="social-info">
-                                            <span class="ti-bag"></span>
-                                            <p class="hover-text">add to bag</p>
-                                        </a>
-                                        <a href="" class="social-info">
-                                            <span class="lnr lnr-heart"></span>
-                                            <p class="hover-text">Wishlist</p>
-                                        </a>
-                                        <a href="" class="social-info">
-                                            <span class="lnr lnr-sync"></span>
-                                            <p class="hover-text">compare</p>
-                                        </a>
-                                        <a href="" class="social-info">
-                                            <span class="lnr lnr-move"></span>
-                                            <p class="hover-text">view more</p>
-                                        </a>
+                                            <div class="price">
+                                                <h6>
+                                                    @item.Price
+                                                </h6>
+                                            </div>
+                                            <div class="prd-bottom">
+
+                                                <a href="" class="social-info">
+                                                    <span class="ti-bag"></span>
+                                                    <p class="hover-text">add to bag</p>
+                                                </a>
+                                                <a href="" class="social-info">
+                                                    <span class="lnr lnr-heart"></span>
+                                                    <p class="hover-text">Wishlist</p>
+                                                </a>
+                                                <a href="" class="social-info">
+                                                    <span class="lnr lnr-sync"></span>
+                                                    <p class="hover-text">compare</p>
+                                                </a>
+                                                <a href="" class="social-info">
+                                                    <span class="lnr lnr-move"></span>
+                                                    <p class="hover-text">view more</p>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
+                            }
                         </div>
                     </div>
                     @*	<div class="row">
