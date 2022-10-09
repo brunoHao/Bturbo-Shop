@@ -21,5 +21,10 @@ namespace DemoWebTemplate.Models.Shop
         [DisplayName("Quantity")]
         public int Count { get; set; }
 
+        [Required]
+        public Category Category { get; set; }
+
+        
+        public string Image { get; set; }
     }
 }

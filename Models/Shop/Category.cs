@@ -14,8 +14,7 @@ namespace DemoWebTemplate.Models.Shop
         [Column(TypeName = "nvarchar")]
         public string? Name { get; set; }
 
-        [Required]
-        public Product? Product { get; set; }
+  
 
     }
 }
