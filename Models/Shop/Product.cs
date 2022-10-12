@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DemoWebTemplate.Models.Shop
 {
+
     public class Product
     {
         [Key]
@@ -21,10 +22,15 @@ namespace DemoWebTemplate.Models.Shop
         [DisplayName("Quantity")]
         public int Count { get; set; }
 
+        
+        public string Desc { get; set; }
+
         [Required]
         public Category Category { get; set; }
 
-        
+        [Required]
         public string Image { get; set; }
+
+
     }
 }

@@ -16,6 +16,13 @@ namespace DemoWebTemplate.Models.Shop
         public double Total { get; set; }
 
         [Required]
+        public string Address { get; set; }
+
+        public DateTime Date { get; set; }
+
+        [Required]
         public Cart? Cart { get; set; }
+
+        
     }
 }

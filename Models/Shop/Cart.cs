@@ -21,5 +21,11 @@ namespace DemoWebTemplate.Models.Shop
 
         [Required]
         public Product? Product { get; set; }
+
+        [Required]
+        public double? Total { get; set; }
+
+        [Required]
+        public AppUser User { get; set; }
     }
 }

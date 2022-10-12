@@ -1,5 +1,4 @@
-﻿@using DemoWebTemplate.Models
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
@@ -60,11 +59,11 @@
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                    aria-expanded="false">Shop</a>
                                 <ul class="dropdown-menu">
-                                    <li class="nav-item"><a class="nav-link" asp-controller="Shop" asp-action="category">Shop Category</a></li>
-                                    <li class="nav-item"><a class="nav-link" asp-controller="Shop" asp-action="singleproduct">Product Details</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Shop" asp-action="Index">Shop</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-controller="Shop" asp-action="Cart">Product Details</a></li>
                                     <li class="nav-item"><a class="nav-link" asp-controller="Shop" asp-action="checkout">Product Checkout</a></li>
-                                    <li class="nav-item"><a class="nav-link" asp-controller="Shop" asp-action="cart">Shopping Cart</a></li>
-                                    <li class="nav-item"><a class="nav-link" asp-controller="Shop" asp-action="confirmation">Confirmation</a></li>
+@*                                    <li class="nav-item"><a class="nav-link" asp-controller="Shop" asp-action="cart">Shopping Cart</a></li>
+*@                                   <li class="nav-item"><a class="nav-link" asp-controller="Shop" asp-action="confirmation">Confirmation</a></li>
                                 </ul>
                             </li>
                             <li class="nav-item submenu dropdown">
