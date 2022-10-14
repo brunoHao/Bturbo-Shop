@@ -10,22 +10,22 @@ namespace DemoWebTemplate.Models.Shop
         [Key]
         public int Id { get; set; }
 
-        [StringLength(225)]
         [Required]
-        [Column(TypeName = "nvarchar")]
         public string? Name { get; set; }
 
         [Required]
-        [DisplayName("Quantity")]
-        public int Count { get; set; }
+        public int Qty { get; set; }
 
-        [Required]
-        public Product? Product { get; set; }
+        
+        public double Price { get; set; }
 
         [Required]
         public double? Total { get; set; }
 
         [Required]
-        public AppUser User { get; set; }
+        public int ProductId { get; set; }
+
+        [Required]
+        public string? UserId { get; set; }
     }
 }

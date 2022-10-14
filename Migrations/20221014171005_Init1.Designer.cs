@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoWebTemplate.Migrations
 {
     [DbContext(typeof(MyDatabase))]
-    [Migration("20221012175333_Init1")]
+    [Migration("20221014171005_Init1")]
     partial class Init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,22 +97,24 @@ namespace DemoWebTemplate.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(225)
-                        .HasColumnType("nvarchar(225)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Qty")
                         .HasColumnType("int");
 
                     b.Property<double?>("Total")
                         .IsRequired()
                         .HasColumnType("float");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserIdId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -120,7 +122,7 @@ namespace DemoWebTemplate.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserIdId");
 
                     b.ToTable("Carts");
                 });
@@ -158,7 +160,6 @@ namespace DemoWebTemplate.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Desc")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
@@ -195,13 +196,13 @@ namespace DemoWebTemplate.Migrations
                     b.Property<int>("CartId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Total")
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
+                    b.Property<double>("TotalBill")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -352,15 +353,15 @@ namespace DemoWebTemplate.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DemoWebTemplate.Models.AppUser", "User")
+                    b.HasOne("DemoWebTemplate.Models.AppUser", "UserId")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserIdId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
 
-                    b.Navigation("User");
+                    b.Navigation("UserId");
                 });
 
             modelBuilder.Entity("DemoWebTemplate.Models.Shop.Product", b =>

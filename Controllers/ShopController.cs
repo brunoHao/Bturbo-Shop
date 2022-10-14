@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Dapper;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.AspNetCore.Identity;
 
 namespace DemoWebTemplate.Controllers
 {
@@ -13,11 +14,12 @@ namespace DemoWebTemplate.Controllers
     {
         private readonly MyDatabase _myDatabase;
         private readonly ILogger<ShopController> _logger;
-
-        public ShopController(MyDatabase myDatabase, ILogger<ShopController> logger,IConfiguration configuration)
+        private readonly UserManager<AppUser> _userManager;
+        public ShopController(MyDatabase myDatabase, ILogger<ShopController> logger,IConfiguration configuration,UserManager<AppUser> userManager)
         {
             _myDatabase = myDatabase;
             _logger = logger;
+            _userManager = userManager;
         }
         public IActionResult Index(int Id)
         {
@@ -33,7 +35,7 @@ namespace DemoWebTemplate.Controllers
         }
       
         [HttpGet]
-        public IActionResult Cart(int Id)
+        public IActionResult ProductDetail(int Id)
         {
             if (Id == 0)
             {
@@ -47,25 +49,46 @@ namespace DemoWebTemplate.Controllers
           
         }
 
-        //List<Cart> li = new List<Cart>();
-        //[HttpPost]
-        //public IActionResult Cart(Product Pi, string Count, int Id)
-        //{
-        //    var product = _myDatabase.Products.Where(p => p.Id == Id).SingleOrDefault();
+        [HttpGet]
+        public IActionResult Cart(string UserId)
+        {
 
-        //    Cart c = new Cart();
-        //    c.Product.Id = product.Id;
-        //    c.Product.Price = (double)product.Price;
-        //    c.Count = Convert.ToInt32(product.Count);
-        //    c.Total = c.Product.Price * c.Count; 
+            var liCart = _myDatabase.Carts.Where(c => c.UserId == UserId).ToList();
+            return View(liCart);
+        }
 
-        //     li.Add(c);
+        [HttpPost]
+        public IActionResult Cart(int Qty,int productId)
+        {
+            var product = _myDatabase.Products.Where(p => p.Id == productId).FirstOrDefault();
+            var userId = _userManager.GetUserId(User);
 
-        //    TempData["Cart"] = li;
-        //    TempData.Keep();
 
-        //    return  RedirectToAction("Category");
-        //}
+            //Cart cart = new Cart();
+            //cart.UserId.Id = userId;
+            //cart.ProductId = productId;
+            //cart.Qty = Qty;
+            //cart.Price = product.Price;
+            //cart.Name = product.Name;
+            //cart.Total = Qty * product.Price;
+
+            //li.Add(cart);
+            //_myDatabase.SaveChanges();
+
+            Cart cart = new Cart()
+            {
+                UserId = userId,
+                ProductId = productId,
+                Qty = Qty,
+                Price = product.Price,
+                Name = product.Name,
+                Total = Qty * product.Price
+            };
+            _myDatabase.Carts.Add(cart);
+            _myDatabase.SaveChanges();
+
+            return View(_myDatabase.Carts.ToList());
+        }
 
         public IActionResult Confirmation()
         {

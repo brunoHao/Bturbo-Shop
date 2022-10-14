@@ -12,25 +12,20 @@ namespace DemoWebTemplate.Models.Shop
 
         [StringLength(225)]
         [Required]
-        [Column(TypeName = "nvarchar")]
         public string? Name { get; set; }
 
         [Required]
         public double Price { get; set; }
 
         [Required]
-        [DisplayName("Quantity")]
         public int Count { get; set; }
 
-        
-        public string Desc { get; set; }
+        public string? Desc { get; set; }
 
         [Required]
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
 
         [Required]
-        public string Image { get; set; }
-
-
+        public string? Image { get; set; }
     }
 }
