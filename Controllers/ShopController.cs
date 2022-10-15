@@ -54,6 +54,8 @@ namespace DemoWebTemplate.Controllers
         {
 
             var liCart = _myDatabase.Carts.Where(c => c.UserId == UserId).ToList();
+
+            
             return View(liCart);
         }
 
@@ -62,18 +64,6 @@ namespace DemoWebTemplate.Controllers
         {
             var product = _myDatabase.Products.Where(p => p.Id == productId).FirstOrDefault();
             var userId = _userManager.GetUserId(User);
-
-
-            //Cart cart = new Cart();
-            //cart.UserId.Id = userId;
-            //cart.ProductId = productId;
-            //cart.Qty = Qty;
-            //cart.Price = product.Price;
-            //cart.Name = product.Name;
-            //cart.Total = Qty * product.Price;
-
-            //li.Add(cart);
-            //_myDatabase.SaveChanges();
 
             Cart cart = new Cart()
             {
