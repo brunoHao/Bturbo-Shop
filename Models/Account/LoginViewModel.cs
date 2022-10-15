@@ -13,13 +13,13 @@ namespace DemoWebTemplate.Models.Account
     {
         [Required(ErrorMessage = "Must Import {0}")]
         [Display(Name = "UserName Or Email")]
-        public string UserNameOrEmail { get; set; }
+        public string? UserNameOrEmail { get; set; }
 
 
         [Required(ErrorMessage = "Must Import {0}")]
         [DataType(DataType.Password)]
         [Display]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         [Display(Name = "Keep Me Login")]
         public bool RememberMe { get; set; }

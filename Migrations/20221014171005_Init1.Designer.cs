@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoWebTemplate.Migrations
 {
     [DbContext(typeof(MyDatabase))]
-    [Migration("20221008164033_Init1")]
+    [Migration("20221014171005_Init1")]
     partial class Init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -97,20 +97,32 @@ namespace DemoWebTemplate.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(225)
-                        .HasColumnType("nvarchar(225)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Qty")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("Total")
+                        .IsRequired()
+                        .HasColumnType("float");
+
+                    b.Property<string>("UserIdId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("UserIdId");
 
                     b.ToTable("Carts");
                 });
@@ -133,59 +145,6 @@ namespace DemoWebTemplate.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("DemoWebTemplate.Models.Shop.DetailRecieve", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("RecieveId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecieveId");
-
-                    b.ToTable("DetailRecieves");
-                });
-
-            modelBuilder.Entity("DemoWebTemplate.Models.Shop.DetailsProduct", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasMaxLength(225)
-                        .HasColumnType("nvarchar(225)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(225)
-                        .HasColumnType("nvarchar(225)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("DetailsProducts");
-                });
-
             modelBuilder.Entity("DemoWebTemplate.Models.Shop.Product", b =>
                 {
                     b.Property<int>("Id")
@@ -199,6 +158,9 @@ namespace DemoWebTemplate.Migrations
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
+
+                    b.Property<string>("Desc")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -227,13 +189,20 @@ namespace DemoWebTemplate.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("CartId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Count")
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Qty")
                         .HasColumnType("int");
 
-                    b.Property<double>("Total")
+                    b.Property<double>("TotalBill")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -384,29 +353,15 @@ namespace DemoWebTemplate.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("DemoWebTemplate.Models.Shop.DetailRecieve", b =>
-                {
-                    b.HasOne("DemoWebTemplate.Models.Shop.Recieve", "Recieve")
+                    b.HasOne("DemoWebTemplate.Models.AppUser", "UserId")
                         .WithMany()
-                        .HasForeignKey("RecieveId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Recieve");
-                });
-
-            modelBuilder.Entity("DemoWebTemplate.Models.Shop.DetailsProduct", b =>
-                {
-                    b.HasOne("DemoWebTemplate.Models.Shop.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("UserIdId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Product");
+
+                    b.Navigation("UserId");
                 });
 
             modelBuilder.Entity("DemoWebTemplate.Models.Shop.Product", b =>

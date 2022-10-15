@@ -13,8 +13,5 @@ namespace DemoWebTemplate.Models.Shop
         [Required]
         [Column(TypeName = "nvarchar")]
         public string? Name { get; set; }
-
-  
-
     }
 }

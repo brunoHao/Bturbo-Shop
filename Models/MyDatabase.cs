@@ -23,11 +23,9 @@ namespace DemoWebTemplate.Models
             base.OnModelCreating(model);
         }
         public DbSet<Product> Products { get; set; }
-        public DbSet<DetailsProduct> DetailsProducts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Recieve> Recieves { get; set; }
-        public DbSet<DetailRecieve> DetailRecieves { get; set; }
 
 
     }
