@@ -28,49 +28,47 @@
                         <thead>
                             <tr>
                                 <th scope="col">Product</th>
+                                <th scope="col">Name</th>
                                 <th scope="col">Price</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Total</th>
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                             @foreach (var item in Model)
                             {
                                 <tr>
                                     <td>
                                         <div class="media">
                                             <div class="d-flex">
-                                                hihi
+                                                <img class="img-fluid" width="80" height="80" src="@item.Product.Image" alt="">
                                             </div>
-                                            <div class="media-body">
-                                                <p>Minimalistic shop for multipurpose use</p>
-                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="media-body">
+                                            <h5>@item.Product.Name</h5>
                                         </div>
                                     </td>
                                     <td>
                                         <h5>@item.Price $</h5>
                                     </td>
                                     <td>
-                                        <div class="product_count">
-                                            <input type="text" name="Qty" id="sst" maxlength="12" value=@item.Qty title="Quantity:"
-                                               class="input-text qty">
-                                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                                class="increase items-count" type="button">
-                                                <i class="lnr lnr-chevron-up"></i>
-                                            </button>
-                                            <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                                class="reduced items-count" type="button">
-                                                <i class="lnr lnr-chevron-down"></i>
-                                            </button>
-                                        </div>
+                                        <form asp-controller="Shop" asp-action="ChangeQuantity" asp-route-Qty="@item.Qty" asp-route-ProductId="@item.Product.Id" asp-route-Id="@item.Id">
+                                            <div class="product_count">
+                                                <label for="Qty">Quantity:</label>
+                                                <input type="number" name="Qty" id="Qty" value="@item.Qty" title="Quantity:" class="input-text qty">
+                                                <input style="padding-left:25px !important; height:50px !important" type="submit" value="Update" class="primary-btn">
+                                            </div>
+                                        </form>
                                     </td>
                                     <td>
                                         <h5>@item.Total $</h5>
                                     </td>
                                 </tr>
                             }
-                            
+
 
 
 
