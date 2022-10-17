@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using Dapper;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.AspNetCore.Identity;
+using System.Net.WebSockets;
 
 namespace DemoWebTemplate.Controllers
 {
@@ -50,12 +51,10 @@ namespace DemoWebTemplate.Controllers
         }
 
         [HttpGet]
-        public IActionResult Cart(string UserId)
+        public IActionResult Cart()
         {
-
-            var liCart = _myDatabase.Carts.Where(c => c.UserId == UserId).ToList();
-
-            
+            var userId = _userManager.GetUserId(User);
+            var liCart = _myDatabase.Carts.Include("Product").Where(c => c.UserId == userId).ToList();
             return View(liCart);
         }
 
@@ -77,7 +76,18 @@ namespace DemoWebTemplate.Controllers
             _myDatabase.Carts.Add(cart);
             _myDatabase.SaveChanges();
 
-            return View(_myDatabase.Carts.ToList());
+            return RedirectToAction("Cart");
+        }
+
+        public IActionResult ChangeQuantity(int Qty, int ProductId, int Id)
+        {
+            var product = _myDatabase.Products.Where(p => p.Id == ProductId).FirstOrDefault();
+            var cart = _myDatabase.Carts.Where(c => c.Id == Id).FirstOrDefault();
+            cart.Qty = Qty;
+            cart.Total = Qty * product.Price;
+            _myDatabase.Carts.Update(cart);
+            _myDatabase.SaveChanges();
+            return RedirectToAction("Cart");
         }
 
         public IActionResult Confirmation()

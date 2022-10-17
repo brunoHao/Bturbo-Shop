@@ -27,5 +27,7 @@ namespace DemoWebTemplate.Models.Shop
 
         [Required]
         public string? UserId { get; set; }
+
+        public Product? Product { get; set; }
     }
 }
