@@ -1,7 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model List<DemoWebTemplate.Models.Shop.Cart>
 @inject UserManager<AppUser> UserManager
-
+@{
+    var Subtotal = Model.AsEnumerable().Sum(row => row.Total);
+}
 
 <body>
     <!-- Start Banner Area -->
@@ -97,7 +99,7 @@
                                     <h5>Subtotal</h5>
                                 </td>
                                 <td>
-                                    <h5>$2160.00</h5>
+                                    <h5>$@Subtotal</h5>
                                 </td>
                             </tr>
                             <tr class="shipping_area">
@@ -142,7 +144,7 @@
                                 <td>
                                     <div class="checkout_btn_inner d-flex align-items-center">
                                         <a class="gray_btn" href="#">Continue Shopping</a>
-                                        <a class="primary-btn" href="#">Proceed to checkout</a>
+                                        <a class="primary-btn" asp-controller="Shop" asp-action="Checkout">Proceed to checkout</a>
                                     </div>
                                 </td>
                             </tr>

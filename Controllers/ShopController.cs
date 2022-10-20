@@ -3,11 +3,8 @@ using DemoWebTemplate.Models.Shop;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
-using System.Data.SqlClient;
-using Dapper;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.AspNetCore.Identity;
-using System.Net.WebSockets;
+using System.Linq;
 
 namespace DemoWebTemplate.Controllers
 {
@@ -16,7 +13,7 @@ namespace DemoWebTemplate.Controllers
         private readonly MyDatabase _myDatabase;
         private readonly ILogger<ShopController> _logger;
         private readonly UserManager<AppUser> _userManager;
-        public ShopController(MyDatabase myDatabase, ILogger<ShopController> logger,IConfiguration configuration,UserManager<AppUser> userManager)
+        public ShopController(MyDatabase myDatabase, ILogger<ShopController> logger, IConfiguration configuration, UserManager<AppUser> userManager)
         {
             _myDatabase = myDatabase;
             _logger = logger;
@@ -34,7 +31,7 @@ namespace DemoWebTemplate.Controllers
                 return View(_myDatabase.Products.Where(x => x.Category.Id == Id).ToList());
             }
         }
-      
+
         [HttpGet]
         public IActionResult ProductDetail(int Id)
         {
@@ -44,10 +41,10 @@ namespace DemoWebTemplate.Controllers
             }
             else
             {
-              var product = _myDatabase.Products.Include("Category").Where(p => p.Id == Id).FirstOrDefault();
-              return View(product);
+                var product = _myDatabase.Products.Include("Category").Where(p => p.Id == Id).FirstOrDefault();
+                return View(product);
             }
-          
+
         }
 
         [HttpGet]
@@ -59,10 +56,13 @@ namespace DemoWebTemplate.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cart(int Qty,int productId)
+        public IActionResult Cart(int Qty, int productId)
         {
             var product = _myDatabase.Products.Where(p => p.Id == productId).FirstOrDefault();
             var userId = _userManager.GetUserId(User);
+
+            var productc = _myDatabase.Products.ToList();
+
 
             Cart cart = new Cart()
             {
@@ -90,13 +90,99 @@ namespace DemoWebTemplate.Controllers
             return RedirectToAction("Cart");
         }
 
-        public IActionResult Confirmation()
-        {
-            return View();
-        }
+        [HttpGet]
         public IActionResult Checkout()
         {
+            var userId = _userManager.GetUserId(User);
+            var liCart = _myDatabase.Carts.Include("Product").Where(c => c.UserId == userId).ToList();
+            ViewData["subtotal"] = liCart.AsEnumerable().Sum(c => c.Total);
+
+            ViewBag.liCart = liCart;
+
             return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult Recieve(Recieve model)
+        {
+            var userId = _userManager.GetUserId(User);
+            //Listproduct mà user đã order
+            var liCart = _myDatabase.Carts.Where(c => c.UserId == userId).ToList();
+            var sumTotal = liCart.Sum(c => c.Total);
+
+            //tổng sản phẩm mà user đã order.
+
+            var recieve = new Recieve()
+            {
+                TotalBill = (double)sumTotal,
+                //Qty = ,
+                Address = model.Address,
+                Phone = model.Phone,
+                Date = DateTime.Now
+            };
+            _myDatabase.Recieves.Add(recieve);
+            _myDatabase.SaveChanges();
+
+            //Cập nhật Count cho Product = SLT - SLD.
+            var product = _myDatabase.Products.ToList();
+
+            //lấy list product có trong cart.
+            var liQty = _myDatabase.Carts.Include("Product").Where(c => c.UserId == userId).ToList();
+
+            //list product của product có trong cart.
+            var countProductInCart = (from p in product
+                                      join c in liCart
+                                      on
+                                      p.Id equals c.Product.Id
+                                      where
+                                      c.UserId == userId
+                                      select p).ToList();
+
+
+            foreach (var item in countProductInCart)
+            {
+                var Pro = _myDatabase.Products.Where(p => p.Id == item.Id).FirstOrDefault();
+                foreach(var lica in liQty)
+                {
+                    var Liq = _myDatabase.Carts.Where(c => c.Product.Id == Pro.Id).FirstOrDefault();
+                    Pro.Count = item.Count - lica.Qty;
+                    _myDatabase.Products.Update(Pro);
+                    _myDatabase.SaveChanges();
+                }    
+            }    
+           
+
+            //foreach (var item in countProductInCart)
+            //{
+            //    foreach (var qty in liQty)
+            //    {
+            //        var Pro = _myDatabase.Products.Where(p => p.Id == item.Id).FirstOrDefault();
+            //        Pro.Count = item.Count - qty;
+            //        _myDatabase.Products.Update(Pro);
+            //        _myDatabase.SaveChanges();
+            //    }
+            //}
+
+            //Xóa bảng cart sau khi recieve
+            foreach (var c in liCart)
+            {
+                if (c.UserId == userId)
+                {
+                    _myDatabase.Carts.Remove(c);
+                    _myDatabase.SaveChanges();
+                } 
+            }    
+
+            return View("Confirmation",recieve);
+        }
+
+        [HttpGet]
+        public IActionResult Confirmation(Recieve model)
+        {
+            var id = model.Id;
+            var recieve = _myDatabase.Recieves.Where(r => r.Id == id).FirstOrDefault();
+            return View(recieve);
         }
     }
 }
