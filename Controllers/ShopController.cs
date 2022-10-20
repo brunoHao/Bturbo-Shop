@@ -108,7 +108,7 @@ namespace DemoWebTemplate.Controllers
         {
             var userId = _userManager.GetUserId(User);
             //Listproduct mà user đã order
-            var liCart = _myDatabase.Carts.Where(c => c.UserId == userId).ToList();
+            var liCart = _myDatabase.Carts.Include("Product").Where(c => c.UserId == userId).ToList();
             var sumTotal = liCart.Sum(c => c.Total);
 
             //tổng sản phẩm mà user đã order.
@@ -127,9 +127,6 @@ namespace DemoWebTemplate.Controllers
             //Cập nhật Count cho Product = SLT - SLD.
             var product = _myDatabase.Products.ToList();
 
-            //lấy list product có trong cart.
-            var liQty = _myDatabase.Carts.Include("Product").Where(c => c.UserId == userId).ToList();
-
             //list product của product có trong cart.
             var countProductInCart = (from p in product
                                       join c in liCart
@@ -140,29 +137,21 @@ namespace DemoWebTemplate.Controllers
                                       select p).ToList();
 
 
-            foreach (var item in countProductInCart)
+            foreach(var item in countProductInCart)
             {
-                var Pro = _myDatabase.Products.Where(p => p.Id == item.Id).FirstOrDefault();
-                foreach(var lica in liQty)
+                foreach(var cart in liCart)
                 {
-                    var Liq = _myDatabase.Carts.Where(c => c.Product.Id == Pro.Id).FirstOrDefault();
-                    Pro.Count = item.Count - lica.Qty;
-                    _myDatabase.Products.Update(Pro);
-                    _myDatabase.SaveChanges();
+                    if(item.Id == cart.Product.Id)
+                    {
+                        var Pro = _myDatabase.Products.Where(p => p.Id == cart.Product.Id).FirstOrDefault();
+                        Pro.Count = item.Count - cart.Qty;
+                        _myDatabase.Products.Update(Pro);
+                        _myDatabase.SaveChanges();
+                    }    
                 }    
             }    
-           
 
-            //foreach (var item in countProductInCart)
-            //{
-            //    foreach (var qty in liQty)
-            //    {
-            //        var Pro = _myDatabase.Products.Where(p => p.Id == item.Id).FirstOrDefault();
-            //        Pro.Count = item.Count - qty;
-            //        _myDatabase.Products.Update(Pro);
-            //        _myDatabase.SaveChanges();
-            //    }
-            //}
+          
 
             //Xóa bảng cart sau khi recieve
             foreach (var c in liCart)
