@@ -104,8 +104,10 @@ namespace DemoWebTemplate.Controllers
 
 
         [HttpPost]
-        public IActionResult Recieve(Recieve model)
+        public IActionResult Recieve(Recieve model, string returnUrl = null)
         {
+            returnUrl ??= Url.Content("~/");
+            ViewData["ReturnUrl"] = returnUrl;
             var userId = _userManager.GetUserId(User);
             //Listproduct mà user đã order
             var liCart = _myDatabase.Carts.Include("Product").Where(c => c.UserId == userId).ToList();
@@ -163,12 +165,14 @@ namespace DemoWebTemplate.Controllers
                 } 
             }    
 
-            return View("Confirmation",recieve);
+            return RedirectToAction("Confirmation",recieve);
         }
 
         [HttpGet]
-        public IActionResult Confirmation(Recieve model)
+        public IActionResult Confirmation(Recieve model, string returnUrl = null)
         {
+            returnUrl ??= Url.Content("~/");
+            ViewData["ReturnUrl"] = returnUrl;
             var id = model.Id;
             var recieve = _myDatabase.Recieves.Where(r => r.Id == id).FirstOrDefault();
             return View(recieve);
