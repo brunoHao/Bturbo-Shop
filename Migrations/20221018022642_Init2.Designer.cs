@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoWebTemplate.Migrations
 {
     [DbContext(typeof(MyDatabase))]
-    [Migration("20221016191837_Init2")]
+    [Migration("20221018022642_Init2")]
     partial class Init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -191,11 +191,14 @@ namespace DemoWebTemplate.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CartId")
+                    b.Property<int?>("CartId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<double>("Phone")
+                        .HasColumnType("float");
 
                     b.Property<int>("Qty")
                         .HasColumnType("int");
@@ -369,9 +372,7 @@ namespace DemoWebTemplate.Migrations
                 {
                     b.HasOne("DemoWebTemplate.Models.Shop.Cart", "Cart")
                         .WithMany()
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CartId");
 
                     b.Navigation("Cart");
                 });

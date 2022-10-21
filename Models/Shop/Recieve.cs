@@ -9,7 +9,6 @@ namespace DemoWebTemplate.Models.Shop
         [Key]
         public int Id { get; set; }
 
-        [Required]
         public int Qty { get; set; }
 
         [Required]
@@ -20,7 +19,10 @@ namespace DemoWebTemplate.Models.Shop
 
         public DateTime Date { get; set; }
 
-        [Required]
-        public Cart? Cart { get; set; }
+        public Product? Product { get; set; }
+
+        public double Phone { get; set; }
+
+        
     }
 }
