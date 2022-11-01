@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.Contracts;
 
 namespace DemoWebTemplate.Models.Shop
 {
@@ -19,10 +20,14 @@ namespace DemoWebTemplate.Models.Shop
 
         public DateTime Date { get; set; }
 
-        public Product? Product { get; set; }
+        public double? Phone { get; set; }
 
-        public double Phone { get; set; }
+        [Required]
+        public string? UserId { get; set; }
 
+        public string? status { get; set; }
+
+        
         
     }
 }

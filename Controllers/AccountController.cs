@@ -33,12 +33,6 @@ namespace DemoWebTemplate.Controllers
             _logger = logger;
         }
 
-      
-
-        public IActionResult Tracking()
-        {
-            return View();
-        }
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using Microsoft.AspNetCore.Identity;
-using System.Linq;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DemoWebTemplate.Controllers
 {
@@ -112,19 +112,30 @@ namespace DemoWebTemplate.Controllers
             //Listproduct mà user đã order
             var liCart = _myDatabase.Carts.Include("Product").Where(c => c.UserId == userId).ToList();
             var sumTotal = liCart.Sum(c => c.Total);
-
             //tổng sản phẩm mà user đã order.
 
             var recieve = new Recieve()
             {
+                UserId = userId,
                 TotalBill = (double)sumTotal,
-                //Qty = ,
                 Address = model.Address,
                 Phone = model.Phone,
                 Date = DateTime.Now
             };
             _myDatabase.Recieves.Add(recieve);
             _myDatabase.SaveChanges();
+
+            foreach(var cart in liCart)
+            {
+                var reciveDetails = new RecieveDetail()
+                {
+                    RecieveId = recieve.Id,
+                    ProductId = cart.ProductId,
+                    Count = cart.Qty
+                };
+                _myDatabase.RecieveDetails.Add(reciveDetails);
+                _myDatabase.SaveChanges();
+            }    
 
             //Cập nhật Count cho Product = SLT - SLD.
             var product = _myDatabase.Products.ToList();
@@ -139,21 +150,23 @@ namespace DemoWebTemplate.Controllers
                                       select p).ToList();
 
 
-            foreach(var item in countProductInCart)
+            if(countProductInCart.Count == liCart.Count)
             {
-                foreach(var cart in liCart)
+                foreach (var item in countProductInCart)
                 {
-                    if(item.Id == cart.Product.Id)
+                    foreach (var cart in liCart)
                     {
-                        var Pro = _myDatabase.Products.Where(p => p.Id == cart.Product.Id).FirstOrDefault();
-                        Pro.Count = item.Count - cart.Qty;
-                        _myDatabase.Products.Update(Pro);
-                        _myDatabase.SaveChanges();
-                    }    
-                }    
+                        if (item.Id == cart.ProductId)
+                        {
+                            var Pro = _myDatabase.Products.Where(p => p.Id == cart.ProductId).FirstOrDefault();
+                            Pro.Count = item.Count - cart.Qty;
+                            _myDatabase.Products.Update(Pro);
+                            _myDatabase.SaveChanges();
+                        }
+                    }
+                }
             }    
-
-          
+        
 
             //Xóa bảng cart sau khi recieve
             foreach (var c in liCart)
@@ -168,14 +181,40 @@ namespace DemoWebTemplate.Controllers
             return RedirectToAction("Confirmation",recieve);
         }
 
+
         [HttpGet]
-        public IActionResult Confirmation(Recieve model, string returnUrl = null)
+        public IActionResult Confirmation()
         {
-            returnUrl ??= Url.Content("~/");
-            ViewData["ReturnUrl"] = returnUrl;
-            var id = model.Id;
-            var recieve = _myDatabase.Recieves.Where(r => r.Id == id).FirstOrDefault();
+            var userId = _userManager.GetUserId(User);
+            var recieve = _myDatabase.Recieves.Where(r => r.UserId == userId).ToList();
             return View(recieve);
         }
+
+        //[HttpGet]
+        //public IActionResult Confirmation(int id, string returnUrl = null)
+        //{
+        //    returnUrl ??= Url.Content("~/");
+        //    ViewData["ReturnUrl"] = returnUrl;
+        //    var recieve = _myDatabase.Recieves.Where(r => r.Id == id).FirstOrDefault();
+        //    return View(recieve);
+        //}
+
+        [HttpGet]
+        public IActionResult Tracking()
+        {
+            return View();
+        }
+
+
+        //[HttpPost]
+        //public IActionResult Tracking(double phone)
+        //{
+        //    var recieve = _myDatabase.Recieves.Where(p => p.Phone == phone).FirstOrDefault();
+        //    return RedirectToAction("Confirmation", recieve);
+        //}
+
+
+
+
     }
 }

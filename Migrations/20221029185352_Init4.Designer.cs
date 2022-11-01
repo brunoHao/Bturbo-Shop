@@ -4,6 +4,7 @@ using DemoWebTemplate.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoWebTemplate.Migrations
 {
     [DbContext(typeof(MyDatabase))]
-    partial class MyDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20221029185352_Init4")]
+    partial class Init4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,7 +194,7 @@ namespace DemoWebTemplate.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("Phone")
+                    b.Property<double>("Phone")
                         .HasColumnType("float");
 
                     b.Property<int?>("ProductId")
@@ -204,46 +206,11 @@ namespace DemoWebTemplate.Migrations
                     b.Property<double>("TotalBill")
                         .HasColumnType("float");
 
-                    b.Property<string>("UserIdId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("status")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
-
-                    b.HasIndex("UserIdId");
 
                     b.ToTable("Recieves");
-                });
-
-            modelBuilder.Entity("DemoWebTemplate.Models.Shop.RecieveDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RecieveId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("RecieveId");
-
-                    b.ToTable("RecieveDetails");
                 });
 
             modelBuilder.Entity("DemoWebTemplate.Models.Shop.Tracking", b =>
@@ -254,15 +221,16 @@ namespace DemoWebTemplate.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("RecieveId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("recieveId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RecieveId");
+                    b.HasIndex("recieveId");
 
                     b.ToTable("Trackings");
                 });
@@ -428,45 +396,18 @@ namespace DemoWebTemplate.Migrations
                         .WithMany()
                         .HasForeignKey("ProductId");
 
-                    b.HasOne("DemoWebTemplate.Models.AppUser", "UserId")
-                        .WithMany()
-                        .HasForeignKey("UserIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Product");
-
-                    b.Navigation("UserId");
-                });
-
-            modelBuilder.Entity("DemoWebTemplate.Models.Shop.RecieveDetail", b =>
-                {
-                    b.HasOne("DemoWebTemplate.Models.Shop.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DemoWebTemplate.Models.Shop.Recieve", "Recieve")
-                        .WithMany()
-                        .HasForeignKey("RecieveId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Recieve");
                 });
 
             modelBuilder.Entity("DemoWebTemplate.Models.Shop.Tracking", b =>
                 {
-                    b.HasOne("DemoWebTemplate.Models.Shop.Recieve", "Recieve")
+                    b.HasOne("DemoWebTemplate.Models.Shop.Recieve", "recieve")
                         .WithMany()
-                        .HasForeignKey("RecieveId")
+                        .HasForeignKey("recieveId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Recieve");
+                    b.Navigation("recieve");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
