@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Storage;
+using X.PagedList;
 
 namespace DemoWebTemplate.Controllers
 {
@@ -19,17 +19,29 @@ namespace DemoWebTemplate.Controllers
             _logger = logger;
             _userManager = userManager;
         }
-        public IActionResult Index(int Id)
+        public IActionResult Index(int Id,int? page)
         {
-            ViewBag.categoryType = _myDatabase.Categories.ToList();
-            if (Id == 0)
+            if (page == null)
             {
-                return View(_myDatabase.Products.ToList());
+                page = 1;
+
+                ViewBag.categoryType = _myDatabase.Categories.ToList();
+                int pageSize = 3;
+                int pageNumber = page ?? 1;
+
+                if (Id == 0)
+                {
+                    var products = _myDatabase.Products.OrderBy(p => p.Id).ToList();
+                    return View(products.ToPagedList(pageNumber, pageSize));
+                }
+                else
+                {
+                    var products = _myDatabase.Products.OrderBy(p => p.Id).Where(x => x.Category.Id == Id).ToList();
+                    return View(products.ToPagedList(pageNumber, pageSize));
+                }
             }
-            else
-            {
-                return View(_myDatabase.Products.Where(x => x.Category.Id == Id).ToList());
-            }
+
+            return View();
         }
 
         [HttpGet]
