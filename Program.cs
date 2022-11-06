@@ -25,7 +25,8 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<MyDatabase>()
                 .AddDefaultTokenProviders();
 
-builder.Services.Configure<IdentityOptions>(options => {
+builder.Services.Configure<IdentityOptions>(options =>
+{
     // Thiết lập về Password
     options.Password.RequireDigit = false; // Không bắt phải có số
     options.Password.RequireLowercase = false; // Không bắt phải có chữ thường
@@ -50,6 +51,24 @@ builder.Services.Configure<IdentityOptions>(options => {
     options.SignIn.RequireConfirmedAccount = false;
 
 });
+
+builder.Services.AddAuthentication()
+    .AddFacebook(f =>
+    {
+        IConfiguration fbAuthentication = builder.Configuration.GetSection("Authentication:Facebook");
+        f.AppId = fbAuthentication["AppId"];
+        f.AppSecret = fbAuthentication["AppSecret"];
+        f.CallbackPath = "/login-facebook";
+    })
+    .AddGoogle(g =>
+    {
+                    // Đọc thông tin Authentication:Google từ appsettings.json
+                    IConfigurationSection ggAuthentication = builder.Configuration.GetSection("Authentication:Google");
+                    // Thiết lập ClientID và ClientSecret để truy cập API google.
+                    g.ClientId = ggAuthentication["ClientId"];
+                    g.ClientSecret = ggAuthentication["ClientSecret"];
+                    g.CallbackPath = "/login-google";
+    });
 
 //builder.Services.AddAuthentication()
 //                .AddGoogle(g =>
