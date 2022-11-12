@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DemoWebTemplate.Migrations
 {
     [DbContext(typeof(MyDatabase))]
-    [Migration("20221029185352_Init4")]
-    partial class Init4
+    [Migration("20221112085103_Init1")]
+    partial class Init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,6 +35,9 @@ namespace DemoWebTemplate.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("CouponId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -76,7 +79,12 @@ namespace DemoWebTemplate.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<string>("level")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CouponId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -104,7 +112,7 @@ namespace DemoWebTemplate.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
-                    b.Property<int>("ProductId")
+                    b.Property<int?>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Qty")
@@ -115,12 +123,13 @@ namespace DemoWebTemplate.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Carts");
                 });
@@ -141,6 +150,28 @@ namespace DemoWebTemplate.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.Coupon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CouponCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("discount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Coupons");
                 });
 
             modelBuilder.Entity("DemoWebTemplate.Models.Shop.Product", b =>
@@ -191,14 +222,14 @@ namespace DemoWebTemplate.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("CouponId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<double>("Phone")
+                    b.Property<double?>("Phone")
                         .HasColumnType("float");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
 
                     b.Property<int>("Qty")
                         .HasColumnType("int");
@@ -206,11 +237,45 @@ namespace DemoWebTemplate.Migrations
                     b.Property<double>("TotalBill")
                         .HasColumnType("float");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CouponId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Recieves");
+                });
+
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.RecieveDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RecieveId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Recieves");
+                    b.HasIndex("RecieveId");
+
+                    b.ToTable("RecieveDetails");
                 });
 
             modelBuilder.Entity("DemoWebTemplate.Models.Shop.Tracking", b =>
@@ -221,16 +286,15 @@ namespace DemoWebTemplate.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("recieveId")
+                    b.Property<int?>("RecieveId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("recieveId");
+                    b.HasIndex("RecieveId");
 
                     b.ToTable("Trackings");
                 });
@@ -368,15 +432,28 @@ namespace DemoWebTemplate.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("DemoWebTemplate.Models.AppUser", b =>
+                {
+                    b.HasOne("DemoWebTemplate.Models.Shop.Coupon", "Coupon")
+                        .WithMany()
+                        .HasForeignKey("CouponId");
+
+                    b.Navigation("Coupon");
+                });
+
             modelBuilder.Entity("DemoWebTemplate.Models.Shop.Cart", b =>
                 {
                     b.HasOne("DemoWebTemplate.Models.Shop.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductId");
+
+                    b.HasOne("DemoWebTemplate.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("DemoWebTemplate.Models.Shop.Product", b =>
@@ -392,22 +469,41 @@ namespace DemoWebTemplate.Migrations
 
             modelBuilder.Entity("DemoWebTemplate.Models.Shop.Recieve", b =>
                 {
+                    b.HasOne("DemoWebTemplate.Models.Shop.Coupon", "Coupon")
+                        .WithMany()
+                        .HasForeignKey("CouponId");
+
+                    b.HasOne("DemoWebTemplate.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Coupon");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("DemoWebTemplate.Models.Shop.RecieveDetail", b =>
+                {
                     b.HasOne("DemoWebTemplate.Models.Shop.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
 
+                    b.HasOne("DemoWebTemplate.Models.Shop.Recieve", "Recieve")
+                        .WithMany()
+                        .HasForeignKey("RecieveId");
+
                     b.Navigation("Product");
+
+                    b.Navigation("Recieve");
                 });
 
             modelBuilder.Entity("DemoWebTemplate.Models.Shop.Tracking", b =>
                 {
-                    b.HasOne("DemoWebTemplate.Models.Shop.Recieve", "recieve")
+                    b.HasOne("DemoWebTemplate.Models.Shop.Recieve", "Recieve")
                         .WithMany()
-                        .HasForeignKey("recieveId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RecieveId");
 
-                    b.Navigation("recieve");
+                    b.Navigation("Recieve");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

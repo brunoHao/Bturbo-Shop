@@ -29,6 +29,7 @@ namespace DemoWebTemplate.Models
         public DbSet<Tracking> Trackings { get; set; }
 
         public DbSet<RecieveDetail> RecieveDetails { get; set; }
+        public DbSet<Coupon> Coupons { get; set; }
 
 
     }
