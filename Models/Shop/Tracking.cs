@@ -10,10 +10,12 @@ namespace DemoWebTemplate.Models.Shop
         public int Id { get; set; }
         public string? Status { get; set; }
 
-        [Required]
-        public int? RecieveId { get; set; }
+        //[Required]
+        //public int? RecieveId { get; set; }
 
         public Recieve? Recieve { get; set; }
+
+        
 
     }
 }

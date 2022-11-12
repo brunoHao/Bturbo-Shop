@@ -69,7 +69,7 @@ namespace DemoWebTemplate.Controllers
                 {
                     _logger.LogInformation(1, "User logged in.");
                     StatusMessage = "Success";
-                    return RedirectToAction("Index", "Home",StatusMessage);
+                    return RedirectToAction("Index", "Home", StatusMessage);
                 }
 
 

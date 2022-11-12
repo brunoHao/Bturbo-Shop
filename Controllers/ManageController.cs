@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace DemoWebTemplate.Controllers
 {
 
-    
+
     public class ManageController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -368,7 +368,7 @@ namespace DemoWebTemplate.Controllers
         public async Task<IActionResult> EditProfileAsync()
         {
             var user = await GetCurrentUserAsync();
-            
+
             var model = new EditExtraProfileModel()
             {
                 //BirthDate = user.BirthDate,

@@ -19,7 +19,7 @@ namespace DemoWebTemplate.Controllers
             _logger = logger;
             _userManager = userManager;
         }
-        public IActionResult Index(int Id,int? page)
+        public IActionResult Index(int Id, int? page)
         {
             if (page == null)
             {
@@ -137,7 +137,7 @@ namespace DemoWebTemplate.Controllers
             _myDatabase.Recieves.Add(recieve);
             _myDatabase.SaveChanges();
 
-            foreach(var cart in liCart)
+            foreach (var cart in liCart)
             {
                 var reciveDetails = new RecieveDetail()
                 {
@@ -147,7 +147,7 @@ namespace DemoWebTemplate.Controllers
                 };
                 _myDatabase.RecieveDetails.Add(reciveDetails);
                 _myDatabase.SaveChanges();
-            }    
+            }
 
             //Cập nhật Count cho Product = SLT - SLD.
             var product = _myDatabase.Products.ToList();
@@ -162,7 +162,7 @@ namespace DemoWebTemplate.Controllers
                                       select p).ToList();
 
 
-            if(countProductInCart.Count == liCart.Count)
+            if (countProductInCart.Count == liCart.Count)
             {
                 foreach (var item in countProductInCart)
                 {
@@ -177,8 +177,8 @@ namespace DemoWebTemplate.Controllers
                         }
                     }
                 }
-            }    
-        
+            }
+
 
             //Xóa bảng cart sau khi recieve
             foreach (var c in liCart)
@@ -187,10 +187,10 @@ namespace DemoWebTemplate.Controllers
                 {
                     _myDatabase.Carts.Remove(c);
                     _myDatabase.SaveChanges();
-                } 
-            }    
+                }
+            }
 
-            return RedirectToAction("Confirmation",recieve);
+            return RedirectToAction("Confirmation", recieve);
         }
 
 
